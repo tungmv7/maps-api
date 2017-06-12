@@ -17,8 +17,8 @@ $app->get('/[{name}]', function ($request, $response, $args) {
 		$center_lng = $params['lng'];
 		$radius = isset($params['radius']) ? $params['radius'] : 25;
 		
-		$db = new PDO("mysql:host=localhost;dbname=test", 'root', '123@cms');
-		$query = sprintf("SELECT *, ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance FROM mytable HAVING distance < '%s' ORDER BY distance LIMIT 0 , 5",
+		$db = new PDO("mysql:host=localhost;dbname=maps", 'root', '123@cms');
+		$query = sprintf("SELECT *, ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance FROM resellers HAVING distance < '%s' ORDER BY distance LIMIT 0 , 5",
 			  ($center_lat),
 			  ($center_lng),
 			  ($center_lat),
@@ -35,7 +35,8 @@ $app->get('/[{name}]', function ($request, $response, $args) {
 				'Email' => $value['Email'],
 				'Phone' => $value['Phone'],
 				'Lat' => $value['Lat'],
-				'Lng' => $value['Lng']
+				'Lng' => $value['Lng'],
+				'Website' => $value['Website']
 			];
 		}
 	}
